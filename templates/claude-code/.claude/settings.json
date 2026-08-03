@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__antfly__query",
+      "mcp__antfly__get_document"
+    ],
+    "deny": [
+      "mcp__antfly__create_table",
+      "mcp__antfly__drop_table",
+      "mcp__antfly__create_index",
+      "mcp__antfly__drop_index",
+      "mcp__antfly__batch",
+      "mcp__antfly__backup",
+      "mcp__antfly__restore"
+    ]
+  }
+}

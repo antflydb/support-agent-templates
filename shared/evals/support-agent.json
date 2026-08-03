@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "description": "Portable support-agent behavior cases. Replace placeholders before running against a customer knowledge base.",
+  "cases": [
+    {
+      "id": "product-overview",
+      "question": "What is {{PRODUCT_NAME}} and how does it work?",
+      "category": "broad_product",
+      "expect": ["direct_answer", "grounded_claims", "friendly_citations", "one_initial_query"]
+    },
+    {
+      "id": "exact-term",
+      "question": "What does the documentation say about {{EXACT_PRODUCT_TERM}}?",
+      "category": "full_text",
+      "expect": ["exact_term_evidence", "friendly_citations"]
+    },
+    {
+      "id": "semantic-paraphrase",
+      "question": "{{SEMANTIC_PARAPHRASE_QUESTION}}",
+      "category": "semantic",
+      "expect": ["conceptual_match", "grounded_claims"]
+    },
+    {
+      "id": "multi-source",
+      "question": "{{MULTI_SOURCE_QUESTION}}",
+      "category": "synthesis",
+      "expect": ["multiple_relevant_sources", "no_repetition"]
+    },
+    {
+      "id": "setup",
+      "question": "How do I get started with {{PRODUCT_NAME}}?",
+      "category": "how_to",
+      "expect": ["practical_steps", "prerequisites", "grounded_claims"]
+    },
+    {
+      "id": "unsupported-product-question",
+      "question": "Does {{PRODUCT_NAME}} support {{UNDOCUMENTED_FEATURE}}?",
+      "category": "insufficient_evidence",
+      "expect": ["no_hallucination", "support_escalation"]
+    },
+    {
+      "id": "unrelated-question",
+      "question": "What will the weather be tomorrow?",
+      "category": "out_of_scope",
+      "expect": ["brief_scope_response", "no_irrelevant_citations", "no_support_escalation"]
+    },
+    {
+      "id": "retrieval-outage",
+      "question": "What is {{PRODUCT_NAME}}?",
+      "category": "failure_injection",
+      "fixture": "mcp_connection_closed",
+      "expect": ["no_agent_retry", "at_most_one_transport_reconnect", "no_fabrication", "retrieval_unavailable_message"]
+    }
+  ]
+}

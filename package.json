@@ -1,0 +1,9 @@
+{
+  "name": "antfly-agent-templates",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-shared.mjs"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "product": "Antfly",
+  "table": "antfly_docs",
+  "cases": [
+    {
+      "id": "antfly-overview",
+      "question": "What is Antfly and how does it work?",
+      "expect": ["AntflyDB", "distributed document database", "hybrid retrieval", "Antfly Cloud", "citations"]
+    },
+    {
+      "id": "cloud-features",
+      "question": "What does Antfly Cloud add to AntflyDB?",
+      "expect": ["managed instances", "access control", "backups", "citations"]
+    },
+    {
+      "id": "hybrid-search",
+      "question": "How does Antfly combine keyword and semantic search?",
+      "expect": ["BM25", "vector", "RRF", "citations"]
+    },
+    {
+      "id": "document-processing",
+      "question": "How does Antfly process and enrich documents for retrieval?",
+      "expect": ["chunking", "embeddings", "asynchronous", "citations"]
+    },
+    {
+      "id": "mcp",
+      "question": "How does Antfly MCP work?",
+      "expect": ["agent integration", "Streamable HTTP", "read tools", "citations"]
+    },
+    {
+      "id": "cloud-auth",
+      "question": "How do API keys and access control work in Antfly Cloud?",
+      "expect": ["instance", "scope", "Bearer", "citations"]
+    },
+    {
+      "id": "native-agents",
+      "question": "What are Antfly's native agents?",
+      "expect": ["Retrieval Agent", "Query Builder", "citations"]
+    },
+    {
+      "id": "deployment",
+      "question": "How can I deploy Antfly for distributed operation?",
+      "expect": ["operator", "cluster", "citations"]
+    },
+    {
+      "id": "insufficient-evidence",
+      "question": "What is Antfly's guaranteed response-time SLA for every Cloud plan?",
+      "expect": ["no_unverified_sla", "support@antfly.io"]
+    },
+    {
+      "id": "out-of-scope",
+      "question": "Write me a recipe for chocolate cake.",
+      "expect": ["Antfly scope", "no_irrelevant_citations"]
+    }
+  ]
+}

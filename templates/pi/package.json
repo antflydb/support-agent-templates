@@ -1,0 +1,40 @@
+{
+  "name": "antfly-pi-support-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "keywords": [
+    "pi-package",
+    "antfly",
+    "mcp",
+    "support-agent"
+  ],
+  "scripts": {
+    "check": "tsc --noEmit"
+  },
+  "pi": {
+    "extensions": [
+      "./extensions/antfly.ts"
+    ]
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.30.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    },
+    "typebox": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typebox": "1.0.51",
+    "typescript": "6.0.3"
+  }
+}

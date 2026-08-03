@@ -1,0 +1,19 @@
+{
+  "tableName": "{{TABLE_NAME}}",
+  "queryRequest": {
+    "full_text_search": {
+      "match": "{{RELEVANT_KEYWORDS}}",
+      "field": "{{FULL_TEXT_FIELD}}"
+    },
+    "semantic_search": "{{EXPANDED_QUESTION}}",
+    "indexes": ["{{VECTOR_INDEX}}"],
+    "merge_config": {
+      "strategy": "rrf"
+    },
+    "hierarchy": {
+      "return_level": "chunk",
+      "include": ["source", "unit"]
+    },
+    "limit": 6
+  }
+}

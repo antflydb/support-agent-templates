@@ -1,0 +1,13 @@
+{
+  "name": "antfly-claude-support-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file=.env src/index.js",
+    "check": "node --check src/index.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "0.3.218"
+  }
+}
