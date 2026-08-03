@@ -18,6 +18,18 @@ auto-approves only the `query` and `get_document` read tools.
 4. Run `/mcp` and confirm `antfly` is connected.
 5. Ask: `What is Antfly and how does its hybrid retrieval work?`
 
+To test the endpoint before opening an interactive session, run Claude Code's
+MCP health check after exporting the variables:
+
+```bash
+claude mcp list
+```
+
+The server must show as connected. A direct initialize request returning HTTP
+401 means the key is invalid, expired, scoped to another instance, or from a
+different environment; create a fresh instance-scoped read-only key and keep
+the URL and key from the same Antfly Cloud environment.
+
 The same connection can be added without files:
 
 ```bash
@@ -30,6 +42,10 @@ Do not put a token literal in `.mcp.json`. Claude Code expands environment
 variables in HTTP URLs and headers. The project permission file denies known
 write and administration tools; the Antfly key remains the primary enforcement
 boundary and must also be read-only.
+
+Claude's workspace approval file (`.claude/settings.local.json`) is local
+machine state and is intentionally ignored by Git. Each customer approves the
+project-scoped MCP server once on their own machine.
 
 Official Claude Code references:
 
