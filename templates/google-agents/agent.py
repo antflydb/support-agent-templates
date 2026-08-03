@@ -1,0 +1,49 @@
+"""Google ADK support agent grounded by an Antfly Cloud MCP server."""
+
+import os
+
+from google.adk.agents import Agent
+from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
+from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
+
+
+def _mcp_tools() -> McpToolset:
+    url = os.environ["ANTFLY_MCP_URL"]
+    token = os.environ["ANTFLY_API_KEY"]
+    return McpToolset(
+        connection_params=StreamableHTTPConnectionParams(
+            url=url,
+            headers={"Authorization": f"Bearer {token}"},
+            timeout=30,
+            sse_read_timeout=45,
+        ),
+        # Keep the support agent read-only. Add introspection only for diagnostics.
+        tool_filter=["query", "get_document"],
+    )
+
+
+INSTRUCTION = """
+You are Antfly Documentation Support, a read-only support agent.
+
+Answer from Antfly documentation retrieved through the Antfly MCP tool. For each
+substantive question, call query once using the antfly_docs table with a single
+hybrid request: full-text BM25 on field text, semantic search with the
+document_vectors index, Antfly RRF merging, chunk-level output, and limit 6.
+Keep tableName outside queryRequest and never mix raw queryRequest with shorthand
+arguments. Use get_document only when a returned hit needs verification.
+
+Start with a direct answer. Distinguish AntflyDB from Antfly Cloud. Cite retrieved
+documents with friendly linked filenames (https://antfly.io/docs/<path>), never raw
+S3 paths. Do not invent details or claim that a link proves content. If evidence is
+insufficient, say so and recommend support@antfly.io. Never use write or admin tools.
+External actions such as tickets belong to a separately connected tool.
+""".strip()
+
+
+root_agent = Agent(
+    name="antfly_docs_support",
+    model=os.getenv("GOOGLE_MODEL", "gemini-2.5-flash"),
+    description="Read-only Antfly documentation support grounded by Antfly retrieval.",
+    instruction=INSTRUCTION,
+    tools=[_mcp_tools()],
+)
