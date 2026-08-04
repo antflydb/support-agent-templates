@@ -19,6 +19,7 @@ evidence.
    uv run --env-file .env adk web .
    ```
 
+   ADK discovers the `antfly_docs_support/` package in the current directory.
    Select `antfly_docs_support` and ask: **How does Antfly hybrid search combine
    BM25 and vector retrieval?**
 
@@ -46,6 +47,10 @@ A healthy response should contain a direct answer, grounded claims, and friendly
 links such as `https://antfly.io/docs/architecture`. If the connection closes,
 check that the instance is running, the endpoint and key belong to the same
 environment, and the key has query permission. Never print the bearer token.
+
+If ADK reports **No agents found**, make sure you launched `adk web` from this
+template directory (the folder containing `antfly_docs_support/`), not from the
+parent repository or the agent package itself.
 
 ## Deploying
 

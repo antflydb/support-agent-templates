@@ -8,16 +8,13 @@ from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
 
 
 def _mcp_tools() -> McpToolset:
-    url = os.environ["ANTFLY_MCP_URL"]
-    token = os.environ["ANTFLY_API_KEY"]
     return McpToolset(
         connection_params=StreamableHTTPConnectionParams(
-            url=url,
-            headers={"Authorization": f"Bearer {token}"},
+            url=os.environ["ANTFLY_MCP_URL"],
+            headers={"Authorization": f"Bearer {os.environ['ANTFLY_API_KEY']}"},
             timeout=30,
             sse_read_timeout=45,
         ),
-        # Keep the support agent read-only. Add introspection only for diagnostics.
         tool_filter=["query", "get_document"],
     )
 
