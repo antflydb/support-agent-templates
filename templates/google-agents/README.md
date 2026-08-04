@@ -16,7 +16,7 @@ evidence.
 
    ```sh
    uv sync
-   uv run adk web .
+   uv run --env-file .env adk web .
    ```
 
    Select `antfly_docs_support` and ask: **How does Antfly hybrid search combine
@@ -38,7 +38,7 @@ Run deployment. Do not enable `create_table`, `batch`, `drop_*`, `backup`, or
 ## Smoke test
 
 ```sh
-uv run adk web .
+uv run --env-file .env adk web .
 # In the playground: “What is Antfly Cloud, and how is it different from AntflyDB?”
 ```
 
