@@ -15,6 +15,8 @@ The code templates add their own checks:
 ```bash
 cd templates/claude-agent && npm run check && npm audit
 cd templates/pi && npm run check && npm audit --omit=optional
+python3 -m py_compile templates/openai-agents/agent.py
+python3 -m py_compile templates/google-agents/antfly_docs_support/agent.py
 ```
 
 For the standalone Next.js reference:
@@ -47,6 +49,9 @@ For each harness, verify with a dedicated read-only test key:
 | Microsoft Copilot | Instructions and publication recipe captured | Published agent; evaluation reached 10/10 |
 | Claude Code | MCP configuration parses | Requires project approval and local test key |
 | Claude Agent SDK | Dependency install and syntax check pass | Requires Anthropic and Antfly test keys |
+| Google ADK / Agents | Python syntax check pass; runtime requires Google ADK | Requires Gemini/Google Cloud and Antfly test keys |
+| OpenAI Agents SDK | Python syntax check pass; runtime requires SDK | Requires OpenAI and Antfly test keys |
+| Codex | Project MCP configuration and instructions reviewed | Requires Codex project approval and Antfly test key |
 | Hermes | Configuration reviewed against current format | Requires Hermes installation and Antfly test key |
 | Pi | Extension type-check and shipped-dependency audit pass | Requires Pi host and Antfly test key |
 

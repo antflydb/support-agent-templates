@@ -4,7 +4,7 @@ Customer-ready templates for building documentation and knowledge support agents
 
 The collection separates one portable support-agent contract from thin harness adapters. Customers can bring their own product documentation, Antfly table, model provider, branding, and support workflow without rewriting retrieval rules for every agent framework.
 
-## Planned harnesses
+## Available harnesses
 
 - Next.js and Vercel
 - Claude Code
@@ -13,6 +13,9 @@ The collection separates one portable support-agent contract from thin harness a
 - Pi Agent Harness
 - n8n
 - Microsoft Copilot Studio
+- Google ADK / Agents
+- OpenAI Agents SDK
+- Codex
 
 Every harness will also include a working `Antfly Docs Support` example backed by the Antfly documentation table.
 
@@ -45,6 +48,9 @@ See the [customer quickstart](docs/quickstart.md), [template architecture](docs/
 - The [Next.js/Vercel reference](templates/nextjs/README.md) is a deployable application.
 - The [n8n recipe](templates/n8n/README.md) captures the working visual workflow and its bounded system message.
 - The [Copilot Studio recipe](templates/copilot/README.md) includes MCP setup, its 10/10 evaluation refinement, and Microsoft 365 publication.
+- The [Google ADK template](templates/google-agents/README.md) connects Gemini-powered agents to Antfly MCP.
+- The [OpenAI Agents SDK template](templates/openai-agents/README.md) provides a deployable Python agent with Streamable HTTP MCP.
+- The [Codex template](templates/codex/README.md) provides project MCP configuration and durable `AGENTS.md` instructions.
 - Claude Code, Claude Agent SDK, Hermes, and Pi reuse the same table and query contract; their local configuration or code checks are documented in the [validation matrix](docs/validation.md).
 
 The example values target `antfly_docs`, `document_vectors`, and the `text` chunk field. Customers replace those values without changing the safety or retrieval behavior.

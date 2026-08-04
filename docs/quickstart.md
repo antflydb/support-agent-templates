@@ -31,6 +31,9 @@ The support agent should see only `query` and `get_document`. Introspection tool
 | Custom Claude service | [Claude Agent SDK](../templates/claude-agent/README.md) |
 | Visual workflow with business actions | [n8n](../templates/n8n/README.md) |
 | Microsoft 365 or Teams | [Microsoft Copilot](../templates/copilot/README.md) |
+| Google agent runtime | [Google ADK / Agents](../templates/google-agents/README.md) |
+| OpenAI-powered application or service | [OpenAI Agents SDK](../templates/openai-agents/README.md) |
+| OpenAI developer environment | [Codex](../templates/codex/README.md) |
 | Hermes runtime | [Hermes](../templates/hermes/README.md) |
 | Small programmable coding harness | [Pi](../templates/pi/README.md) |
 

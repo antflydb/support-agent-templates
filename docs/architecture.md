@@ -14,7 +14,7 @@ Customer docs / repository / object storage
         query + get_document only
                     |
                     v
-  Next.js | Claude | n8n | Copilot | Hermes | Pi
+  Next.js | Claude | n8n | Copilot | Google ADK | OpenAI SDK | Codex | Hermes | Pi
                     |
                     v
        grounded answer with public citations
@@ -40,3 +40,14 @@ Customer docs / repository / object storage
 - integrations for support tickets, CRM, email, or other business actions.
 
 Antfly remains the evidence and retrieval engine even when a harness uses Claude, OpenAI, Antfly Inference, or another model for generation. Business-action tools are separate from the Antfly retrieval credential and should have their own permissions and approval rules.
+
+## Harness families
+
+- **Web applications:** Next.js/Vercel provides the branded public experience.
+- **Workflow and enterprise assistants:** n8n and Microsoft Copilot provide visual orchestration and publication workflows.
+- **Programmable agent runtimes:** Claude Agent SDK, OpenAI Agents SDK, Google ADK, Hermes, and Pi embed the same contract in code or runtime configuration.
+- **Developer environments:** Claude Code and Codex use project-scoped MCP configuration plus durable agent instructions.
+
+The generation provider is replaceable. A customer can use OpenAI, Gemini,
+Claude, Antfly Inference, or another supported model while keeping Antfly Cloud
+as the retrieval and evidence layer.
