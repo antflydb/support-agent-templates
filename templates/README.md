@@ -22,3 +22,5 @@ Harnesses consume the shared contract rather than maintaining independent copies
 | n8n | [`n8n/`](n8n/) | Recipe captured from validated deployment |
 | Microsoft Copilot | [`copilot/`](copilot/) | Recipe captured from validated deployment and 10/10 evaluation |
 | Google ADK / Agents | [`google-agents/`](google-agents/) | Reference Python agent with remote MCP configuration |
+| OpenAI Agents SDK | [`openai-agents/`](openai-agents/) | Reference Python agent with remote MCP configuration |
+| Codex | [`codex/`](codex/) | Project MCP configuration and support instructions |
