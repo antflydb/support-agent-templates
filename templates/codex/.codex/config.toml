@@ -1,0 +1,3 @@
+[mcp_servers.antfly]
+url = "https://platform-dev.antfly.io/cloud/v1/INSTANCE_ID/mcp/v1"
+bearer_token_env_var = "ANTFLY_API_KEY"
