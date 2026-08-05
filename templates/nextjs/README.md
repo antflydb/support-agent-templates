@@ -7,8 +7,10 @@ Use the independently deployable
 repository. It includes:
 
 - a server-side Antfly MCP client;
+- warm-session reuse with concurrent initialization deduplication and one bounded transport reconnect;
 - one hybrid BM25 + semantic query with Antfly RRF fusion;
 - chunk-level evidence and public documentation citations;
+- cold/warm MCP benchmarks and phase-level latency metrics;
 - OpenAI or Antfly Inference generation;
 - feedback, rate limiting, health checks, and support escalation;
 - local setup and Vercel deployment documentation.
@@ -21,9 +23,16 @@ Validation commands in the application repository:
 
 ```bash
 npm run inspect:antfly
+npm run test:mcp
+npm run benchmark:mcp
 npm run lint
 npm run build
 ```
+
+Run the live benchmark with a dedicated read-only development key from the same
+region as the deployed function. See the reference repository's
+[`docs/PERFORMANCE.md`](https://github.com/antflydb/nextjs-support-agent/blob/main/docs/PERFORMANCE.md)
+for the measured baseline and metric definitions.
 
 Do not copy the application into this collection. Keeping it in a standalone
 repository preserves Vercel's one-click clone and deploy flow while this

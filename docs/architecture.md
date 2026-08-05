@@ -37,6 +37,8 @@ Customer docs / repository / object storage
 - chat user interface and conversation memory;
 - approval, publication, and deployment workflow;
 - bounded transport reconnect outside the model's tool loop;
+- warm MCP session reuse and concurrent initialization deduplication where the runtime permits it;
+- rejection of MCP tool-level error responses and phase-level performance metrics;
 - integrations for support tickets, CRM, email, or other business actions.
 
 Antfly remains the evidence and retrieval engine even when a harness uses Claude, OpenAI, Antfly Inference, or another model for generation. Business-action tools are separate from the Antfly retrieval credential and should have their own permissions and approval rules.

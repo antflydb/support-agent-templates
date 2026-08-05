@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "validate": "node scripts/validate-shared.mjs"
+    "validate": "node scripts/validate-shared.mjs",
+    "benchmark:mcp": "node scripts/benchmark-antfly-mcp.mjs",
+    "test:benchmark:mcp": "node --test scripts/benchmark-antfly-mcp.test.mjs"
   }
 }
