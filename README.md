@@ -4,6 +4,24 @@ Customer-ready templates for building documentation and knowledge support agents
 
 The collection separates one portable support-agent contract from thin harness adapters. Customers can bring their own product documentation, Antfly table, model provider, branding, and support workflow without rewriting retrieval rules for every agent framework.
 
+## Why these templates are different
+
+These are production-oriented retrieval templates, not merely examples of how
+to connect an MCP server to an agent:
+
+- Adaptive retrieval uses semantic-first search for conceptual questions and
+  hybrid BM25 plus vector RRF for exact technical questions.
+- Answer quality and latency are evaluated together through bounded fallbacks,
+  warm-session reuse, evidence checks, benchmarks, and regression tests.
+- Chunk-level evidence, clean generation context, and citation deduplication
+  keep answers grounded without discarding multiple useful chunks from a source.
+- Read-only credentials, strict tool allowlists, bounded retries, and explicit
+  failure behavior provide safe defaults.
+- One retrieval contract works across Next.js, Codex, Claude, OpenAI Agents,
+  Google ADK, Copilot, n8n, Hermes, and Pi.
+- Operational metrics distinguish semantic-first and hybrid latency, fallback
+  rate, payload size, source quality, and citation accuracy.
+
 ## Available harnesses
 
 - Next.js and Vercel
@@ -24,8 +42,8 @@ Every harness will also include a working `Antfly Docs Support` example backed b
 The [`shared`](shared) directory defines behavior that every integration must preserve:
 
 - grounded answers based on retrieved chunks
-- one hybrid query first, with at most one focused fallback
-- full-text and semantic retrieval fused with RRF
+- one intent-selected query first, with at most one focused fallback
+- semantic-first retrieval for broad concepts and hybrid BM25/vector RRF for exact terms
 - read-only MCP access
 - friendly citations instead of private object-storage paths
 - deterministic escalation when evidence is insufficient
