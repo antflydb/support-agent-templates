@@ -46,11 +46,17 @@ For each harness, verify with a dedicated read-only test key:
 8. The harness's published or deployed surface works outside its editor.
 9. An MCP response with `isError: true` fails the smoke test rather than being reported as a fast query.
 10. Authentication, authorization, and invalid-query failures are not retried.
+11. A short definition question routes semantic-first even when its subject does not exactly match configured branding.
+12. An exact technical definition such as an API key remains on the hybrid path.
+13. Structured citations contain public URLs and never expose private object-storage paths.
 
 For code-based or hosted harnesses, also verify that concurrent requests initialize
 the MCP client once, warm requests reuse the session, and a closed session causes at
 most one reconnect and one read-only retry. Capture cold-connect, warm-query, p50,
 p95, hit-count, and decoded-byte measurements from the deployment region.
+For API-based harnesses, assert that response diagnostics identify the selected
+retrieval strategy and broad-question classification so production routing can be
+verified without inspecting prompts.
 
 Keep semantic-first retrieval for broad conceptual questions and hybrid RRF for exact
 technical questions, both with limit six. A lower result limit requires the shared

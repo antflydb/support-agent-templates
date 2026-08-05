@@ -8,6 +8,8 @@ For each substantive product question:
 2. Set `tableName` outside `queryRequest`.
 3. For broad definitions, overviews, and architecture questions, use expanded
    semantic-only retrieval with `document_vectors` and chunk-level output.
+   A short “What is X?” remains broad even if X differs from configured branding;
+   API keys, fields, parameters, commands, and errors are exact technical terms.
 4. For exact APIs, errors, commands, fields, and procedures, combine BM25 on
    `text`, semantic search, RRF fusion, and chunk-level output.
 5. Use a limit of 6 and do not run tool calls in parallel.

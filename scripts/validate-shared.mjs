@@ -121,6 +121,19 @@ for (const file of [
 for (const file of [
   "templates/claude-code/.env.example",
   "templates/claude-agent/.env.example",
+  "templates/n8n/.env.example",
+  "examples/antfly-docs/.env.example",
+]) {
+  const environment = await readFile(file, "utf8");
+  if (!environment.includes("DOCS_BASE_URL=") ||
+      !environment.includes("DOCS_SOURCE_PATH_PREFIX=")) {
+    throw new Error(`${file} must configure public citation normalization`);
+  }
+}
+
+for (const file of [
+  "templates/claude-code/.env.example",
+  "templates/claude-agent/.env.example",
   "templates/hermes/.env.example",
   "templates/pi/.env.example",
   "templates/n8n/.env.example",

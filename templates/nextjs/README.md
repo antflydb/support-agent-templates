@@ -18,6 +18,8 @@ repository. It includes:
 For the Antfly Docs example, copy the values from
 [`examples/antfly-docs/.env.example`](../../examples/antfly-docs/.env.example)
 and add the hosted instance URL, a read-only key, and a generation model key.
+Set `DOCS_BASE_URL` and `DOCS_SOURCE_PATH_PREFIX` in Vercel Production and Preview
+so semantic chunk citations become friendly public links rather than private paths.
 
 Validation commands in the application repository:
 

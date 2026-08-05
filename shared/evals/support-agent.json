@@ -9,6 +9,19 @@
       "expect": ["semantic_first", "direct_answer", "grounded_claims", "friendly_citations", "one_initial_query"]
     },
     {
+      "id": "definition-branding-mismatch",
+      "question": "What is {{PRODUCT_ALIAS_NOT_IN_BRANDING}}?",
+      "category": "broad_product",
+      "fixture": "configured_product_name_does_not_match_question_subject",
+      "expect": ["semantic_first", "query_uses_question_subject", "friendly_citations"]
+    },
+    {
+      "id": "technical-definition",
+      "question": "What is an API key in {{PRODUCT_NAME}}?",
+      "category": "exact_technical",
+      "expect": ["hybrid_retrieval", "exact_term_evidence", "friendly_citations"]
+    },
+    {
       "id": "exact-term",
       "question": "What does the documentation say about {{EXACT_PRODUCT_TERM}}?",
       "category": "full_text",

@@ -16,10 +16,16 @@
 | Variable | Description |
 | --- | --- |
 | `SUPPORT_PRODUCT_NAME` | Product represented by the knowledge base |
+| `SUPPORT_PRODUCT_ALIASES` | Optional comma-separated names users may use for the product; routing must not depend on this for short definition questions |
 | `SUPPORT_AGENT_NAME` | User-visible agent name |
 | `SUPPORT_EMAIL` | Escalation address for in-scope unanswered questions |
 | `DOCS_BASE_URL` | Public documentation root used for citation links |
 | `DOCS_SOURCE_PATH_PREFIX` | Private object path prefix removed from public links |
+
+Set both citation variables in every deployed environment. For example, an object
+under `s3://bucket/acme-docs/guides/start.md` with `DOCS_BASE_URL=https://docs.acme.com`
+and `DOCS_SOURCE_PATH_PREFIX=acme-docs` becomes
+`https://docs.acme.com/guides/start`.
 
 ## Optional generation settings
 

@@ -38,6 +38,8 @@ The support agent should see only `query` and `get_document`. Introspection tool
 | Small programmable coding harness | [Pi](../templates/pi/README.md) |
 
 Copy the harness's `.env.example`, set its secrets, and customize the product name, agent name, support email, table, index, documentation URL, and source prefix.
+Set both `DOCS_BASE_URL` and `DOCS_SOURCE_PATH_PREFIX` in the deployed environment,
+then verify structured citations contain public links and no raw object-storage paths.
 
 ## 4. Preserve the retrieval contract
 

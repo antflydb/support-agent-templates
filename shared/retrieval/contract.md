@@ -22,6 +22,11 @@ Classify retrieval intent before the first call:
 Use hybrid retrieval for API names, error codes, commands, configuration fields,
 and other exact terminology. Use semantic-first retrieval for definitions,
 overviews, architecture explanations, and differently worded conceptual questions.
+Treat a short question such as "What is X?", "What does X do?", or "How does X
+work?" as broad even when `X` differs from configured branding. Build the semantic
+query from `X`, not from the branding variable. Keep definitions of exact technical
+objects such as API keys, parameters, commands, error codes, and configuration
+fields on the hybrid path.
 In the 2026-08-05 development baseline, semantic-only responses were larger and
 slightly slower than hybrid responses, so measure the two paths separately. A limit
 of three can reduce agent context substantially, but limit six remains the default
@@ -73,6 +78,9 @@ Code-based harnesses should pass only explanatory content fields to generation,
 excluding embeddings, internal IDs, extraction provenance, and transport metadata.
 Preserve multiple relevant chunks from the same document. Deduplicate the displayed
 citation independently so citation deduplication never discards evidence.
+Never expose private object-storage paths in the answer or public response model.
+Normalize citations with the configured public documentation base URL and source
+prefix before returning them to a browser or calling application.
 
 ## Failure classification
 

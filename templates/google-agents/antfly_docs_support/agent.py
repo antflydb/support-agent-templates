@@ -28,6 +28,8 @@ semantic-only retrieval through document_vectors for broad definitions, overview
 architecture, and conceptual questions. Use full-text BM25 on text plus semantic
 search and Antfly RRF for exact APIs, errors, commands, fields, and procedures.
 Both strategies use chunk-level output and limit 6.
+Treat short "What is X?" definitions as broad even when X differs from configured
+branding, except for exact technical objects such as API keys, fields, and errors.
 Keep tableName outside queryRequest and never mix raw queryRequest with shorthand
 arguments. Use get_document only when a returned hit needs verification.
 Use one focused fallback only when evidence is insufficient: hybrid after broad
