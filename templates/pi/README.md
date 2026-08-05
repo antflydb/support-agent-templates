@@ -31,7 +31,8 @@ only implements the `query` operation.
 5. Ask: `What is Antfly and how does its hybrid retrieval work?`
 
 The extension enforces a maximum of two sequential retrieval calls per user
-message and constructs the canonical hybrid QueryRequest in code. `AGENTS.md`
+message and constructs either a broad semantic or exact-term hybrid QueryRequest
+in code. `AGENTS.md`
 supplies the grounded-answer behavior.
 
 Pi itself is an optional peer because this extension runs inside the

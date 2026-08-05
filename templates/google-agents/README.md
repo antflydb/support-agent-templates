@@ -31,8 +31,9 @@ from a different module path, use the import path shown by `uv run python -c
 ## Retrieval and safety contract
 
 The agent is intentionally read-only and exposes only `query` and
-`get_document`. It performs one hybrid, chunk-level query against `antfly_docs`
-before answering. Keep that contract when adding a UI, A2A endpoint, or Cloud
+`get_document`. It performs one semantic-first query for broad concepts or one
+hybrid RRF query for exact technical questions against `antfly_docs` before
+answering. Keep that contract when adding a UI, A2A endpoint, or Cloud
 Run deployment. Do not enable `create_table`, `batch`, `drop_*`, `backup`, or
 `restore` for a support agent.
 

@@ -18,7 +18,8 @@ Use an instance-scoped read-only Antfly key. The endpoint must end in `/mcp/v1`.
 The OpenAI key and Antfly key are separate credentials. Never commit `.env`.
 
 The agent exposes only `query` and `get_document`, limits the run to three turns,
-and uses one hybrid chunk-level query before an optional focused fallback. The
+and uses semantic-first retrieval for broad concepts or hybrid RRF for exact
+technical questions before an optional focused fallback. The
 tool filter and instructions are deliberate safety controls: do not enable
 `create_table`, `batch`, `drop_*`, `backup`, or `restore` for support.
 

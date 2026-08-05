@@ -40,6 +40,8 @@ so error payloads cannot be mistaken for unusually fast retrievals.
 - MCP initialization and `tools/list`: record separately from query latency.
 - Warm capability and metadata calls: p95 below 500 ms.
 - Warm hybrid retrieval: p95 below 1,000 ms before agent synthesis.
+- Warm semantic-first retrieval: record separately and compare source relevance
+  and answer quality as well as p95 latency and decoded bytes.
 - Normal support question: one query call, six or fewer focused chunks.
 - Read-only credential: no write or administration tools advertised.
 

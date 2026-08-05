@@ -24,7 +24,8 @@ Customer docs / repository / object storage
 
 - portable answer and escalation instructions;
 - raw Antfly QueryRequest shape;
-- one-query-first call budget;
+- one-query-first, intent-selected retrieval budget;
+- semantic-first retrieval for broad concepts and hybrid RRF for exact terms;
 - read-only tool policy;
 - environment-variable names;
 - Antfly Docs example and customer-generic evaluations;

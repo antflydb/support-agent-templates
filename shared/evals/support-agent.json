@@ -6,19 +6,19 @@
       "id": "product-overview",
       "question": "What is {{PRODUCT_NAME}} and how does it work?",
       "category": "broad_product",
-      "expect": ["direct_answer", "grounded_claims", "friendly_citations", "one_initial_query"]
+      "expect": ["semantic_first", "direct_answer", "grounded_claims", "friendly_citations", "one_initial_query"]
     },
     {
       "id": "exact-term",
       "question": "What does the documentation say about {{EXACT_PRODUCT_TERM}}?",
       "category": "full_text",
-      "expect": ["exact_term_evidence", "friendly_citations"]
+      "expect": ["hybrid_retrieval", "exact_term_evidence", "friendly_citations"]
     },
     {
       "id": "semantic-paraphrase",
       "question": "{{SEMANTIC_PARAPHRASE_QUESTION}}",
       "category": "semantic",
-      "expect": ["conceptual_match", "grounded_claims"]
+      "expect": ["semantic_first", "conceptual_match", "grounded_claims"]
     },
     {
       "id": "multi-source",

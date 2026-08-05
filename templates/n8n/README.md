@@ -45,7 +45,7 @@ Then test:
 | Query returns paths but no text | Request chunk hierarchy with source and unit; metadata alone is not evidence. |
 | `query failed` | Test the same query in Antfly, verify table/index readiness, and inspect instance/inference health. |
 | MCP `-32000: Connection closed` | Stop the run. Confirm the instance is healthy and URL/key environments match; reconnect once instead of allowing the agent to fan out calls. |
-| Cloudflare 524 or response over one minute | Reduce retrieval to one hybrid query with limit 6 and one optional sequential fallback. Check instance load before increasing timeouts. |
+| Cloudflare 524 or response over one minute | Keep one intent-selected query with limit 6 and one optional sequential fallback. Check instance load before increasing timeouts. |
 | Every external client fails | Treat it as an Antfly instance or proxy incident, not a prompt issue. Check health and restart the instance only through the normal operator workflow if appropriate. |
 | Only n8n fails | Recreate or reselect the Bearer credential, refresh the MCP node connection, and run the MCP node alone before testing the agent. |
 

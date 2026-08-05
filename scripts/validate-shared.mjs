@@ -4,6 +4,7 @@ import { dirname, resolve } from "node:path";
 const jsonFiles = [
   "package.json",
   "shared/retrieval/query-request.json",
+  "shared/retrieval/semantic-query-request.json",
   "shared/security/read-only-tools.json",
   "shared/evals/support-agent.json",
   "shared/evals/antfly-docs.json",
@@ -23,7 +24,11 @@ const queryTemplate = await readFile(
   "shared/retrieval/query-request.json",
   "utf8",
 );
-const portableContract = `${prompt}\n${queryTemplate}`;
+const semanticQueryTemplate = await readFile(
+  "shared/retrieval/semantic-query-request.json",
+  "utf8",
+);
+const portableContract = `${prompt}\n${queryTemplate}\n${semanticQueryTemplate}`;
 const requiredPlaceholders = [
   "{{PRODUCT_NAME}}",
   "{{AGENT_NAME}}",
@@ -41,6 +46,7 @@ for (const placeholder of requiredPlaceholders) {
 }
 
 const query = JSON.parse(queryTemplate);
+const semanticQuery = JSON.parse(semanticQueryTemplate);
 if (query.queryRequest?.merge_config?.strategy !== "rrf") {
   throw new Error("The shared query must use RRF fusion");
 }
@@ -49,6 +55,18 @@ if (query.queryRequest?.hierarchy?.return_level !== "chunk") {
 }
 if (query.queryRequest?.limit > 6) {
   throw new Error("The shared query limit must remain at or below 6");
+}
+if (semanticQuery.queryRequest?.full_text_search || semanticQuery.queryRequest?.merge_config) {
+  throw new Error("The broad-question query must remain semantic-first");
+}
+if (!semanticQuery.queryRequest?.semantic_search || !semanticQuery.queryRequest?.indexes?.length) {
+  throw new Error("The broad-question query must configure semantic retrieval");
+}
+if (semanticQuery.queryRequest?.hierarchy?.return_level !== "chunk") {
+  throw new Error("The broad-question query must return chunks");
+}
+if (semanticQuery.queryRequest?.limit > 6) {
+  throw new Error("The broad-question query limit must remain at or below 6");
 }
 
 const policy = JSON.parse(

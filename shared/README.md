@@ -5,7 +5,8 @@ These assets are deliberately framework-neutral. Harness templates may translate
 | Asset | Purpose |
 | --- | --- |
 | [`prompts/support-agent.md`](prompts/support-agent.md) | Portable system instructions with customer placeholders |
-| [`retrieval/query-request.json`](retrieval/query-request.json) | Canonical raw Antfly hybrid query |
+| [`retrieval/semantic-query-request.json`](retrieval/semantic-query-request.json) | Canonical broad-question semantic query |
+| [`retrieval/query-request.json`](retrieval/query-request.json) | Canonical exact-question hybrid query |
 | [`retrieval/contract.md`](retrieval/contract.md) | Query limits, evidence rules, source handling, and failure behavior |
 | [`config/environment.md`](config/environment.md) | Common settings and secret boundaries |
 | [`security/read-only-tools.json`](security/read-only-tools.json) | MCP tool policy shared by every harness |

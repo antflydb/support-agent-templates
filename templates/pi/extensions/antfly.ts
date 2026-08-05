@@ -2,7 +2,11 @@ import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import { Type } from "typebox";
 
-type SearchParams = { question: string; keywords?: string };
+type SearchParams = {
+  question: string;
+  strategy: "semantic" | "hybrid";
+  keywords?: string;
+};
 type ToolResult = {
   content: Array<{ type: "text"; text: string }>;
   details: Record<string, unknown>;
@@ -46,7 +50,7 @@ export default function antflySupport(pi: ExtensionAPI) {
     name: "antfly_search",
     label: "Antfly documentation search",
     description:
-      "Search the configured Antfly knowledge table with BM25, semantic retrieval, RRF fusion, and chunk-level evidence.",
+      "Search the configured Antfly knowledge table with semantic-first or hybrid retrieval and chunk-level evidence.",
     promptSnippet: "Retrieve grounded product documentation from Antfly",
     promptGuidelines: [
       "Use antfly_search once before answering substantive product questions.",
@@ -55,6 +59,9 @@ export default function antflySupport(pi: ExtensionAPI) {
     parameters: Type.Object({
       question: Type.String({
         description: "The user's complete question for semantic retrieval",
+      }),
+      strategy: Type.Union([Type.Literal("semantic"), Type.Literal("hybrid")], {
+        description: "Use semantic for broad concepts and hybrid for exact technical terminology",
       }),
       keywords: Type.Optional(
         Type.String({
@@ -96,15 +103,17 @@ export default function antflySupport(pi: ExtensionAPI) {
             arguments: {
               tableName: process.env.ANTFLY_TABLE || "antfly_docs",
               queryRequest: {
-                full_text_search: {
-                  match: params.keywords || params.question,
-                  field: process.env.ANTFLY_SEARCH_FIELD || "text",
-                },
                 semantic_search: params.question,
                 indexes: [
                   process.env.ANTFLY_VECTOR_INDEX || "document_vectors",
                 ],
-                merge_config: { strategy: "rrf" },
+                ...(params.strategy === "hybrid" ? {
+                  full_text_search: {
+                    match: params.keywords || params.question,
+                    field: process.env.ANTFLY_SEARCH_FIELD || "text",
+                  },
+                  merge_config: { strategy: "rrf" },
+                } : {}),
                 hierarchy: {
                   return_level: "chunk",
                   include: ["source", "unit"],
@@ -121,7 +130,10 @@ export default function antflySupport(pi: ExtensionAPI) {
         const text = JSON.stringify(payload, null, 2).slice(0, 60_000);
         return {
           content: [{ type: "text" as const, text }],
-          details: { table: process.env.ANTFLY_TABLE || "antfly_docs" },
+          details: {
+            table: process.env.ANTFLY_TABLE || "antfly_docs",
+            retrievalStrategy: params.strategy,
+          },
         };
       } finally {
         await client.close().catch(() => undefined);

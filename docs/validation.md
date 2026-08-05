@@ -8,7 +8,7 @@ From the collection root:
 npm run validate
 ```
 
-The validator parses structured configuration, checks required harness files and common connection variables, rejects likely embedded API keys in example environments, and enforces the shared RRF, chunk-output, limit, and read-only invariants.
+The validator parses structured configuration, checks required harness files and common connection variables, rejects likely embedded API keys in example environments, and enforces the shared semantic-first, hybrid RRF, chunk-output, limit, and read-only invariants.
 
 The code templates add their own checks:
 
@@ -38,7 +38,7 @@ For each harness, verify with a dedicated read-only test key:
 
 1. MCP initialization succeeds over Streamable HTTP.
 2. The exposed tool list contains no write or administration operations.
-3. A broad Antfly question makes one query and receives chunks.
+3. A broad Antfly question makes one semantic-first query and receives explanatory chunks.
 4. Citations resolve to public Antfly documentation pages.
 5. A write request is refused without a tool call.
 6. An empty-result fixture allows only one focused fallback.
@@ -52,9 +52,10 @@ the MCP client once, warm requests reuse the session, and a closed session cause
 most one reconnect and one read-only retry. Capture cold-connect, warm-query, p50,
 p95, hit-count, and decoded-byte measurements from the deployment region.
 
-Keep hybrid RRF with limit six as the release default. A lower result limit requires
-the shared grounded-answer and citation-coverage evaluations to pass. Standalone BM25
-or semantic modes additionally require a payload-shape review.
+Keep semantic-first retrieval for broad conceptual questions and hybrid RRF for exact
+technical questions, both with limit six. A lower result limit requires the shared
+grounded-answer and citation-coverage evaluations to pass. Record latency, payload,
+first-query success, fallback rate, and answer quality separately for both strategies.
 
 ## Current reference status
 

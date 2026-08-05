@@ -8,7 +8,7 @@ repository. It includes:
 
 - a server-side Antfly MCP client;
 - warm-session reuse with concurrent initialization deduplication and one bounded transport reconnect;
-- one hybrid BM25 + semantic query with Antfly RRF fusion;
+- semantic-first retrieval for broad concepts and hybrid BM25 + semantic RRF for exact technical questions;
 - chunk-level evidence and public documentation citations;
 - cold/warm MCP benchmarks and phase-level latency metrics;
 - OpenAI or Antfly Inference generation;

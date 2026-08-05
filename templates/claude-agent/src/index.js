@@ -19,15 +19,19 @@ const values = {
 
 const promptUrl = new URL("../../../shared/prompts/support-agent.md", import.meta.url);
 const queryUrl = new URL("../../../shared/retrieval/query-request.json", import.meta.url);
+const semanticQueryUrl = new URL("../../../shared/retrieval/semantic-query-request.json", import.meta.url);
 let systemPrompt = await readFile(promptUrl, "utf8");
 let queryTemplate = await readFile(queryUrl, "utf8");
+let semanticQueryTemplate = await readFile(semanticQueryUrl, "utf8");
 
 for (const [name, value] of Object.entries(values)) {
   systemPrompt = systemPrompt.replaceAll(`{{${name}}}`, value);
   queryTemplate = queryTemplate.replaceAll(`{{${name}}}`, value);
+  semanticQueryTemplate = semanticQueryTemplate.replaceAll(`{{${name}}}`, value);
 }
 
-systemPrompt += `\n\nCanonical query shape for this deployment:\n${queryTemplate}`;
+systemPrompt += `\n\nCanonical broad semantic query:\n${semanticQueryTemplate}`;
+systemPrompt += `\n\nCanonical exact-term hybrid query:\n${queryTemplate}`;
 
 const question = process.argv.slice(2).join(" ").trim();
 if (!question) {

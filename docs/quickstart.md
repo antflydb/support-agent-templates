@@ -14,7 +14,7 @@ Record these values:
 - the extracted chunk text field, normally `text`;
 - the public documentation base URL and private source-path prefix.
 
-Run a hybrid query in Antfly before adding an agent. Confirm that it returns explanatory chunk text, not only source-document metadata. If this direct test fails, fix ingestion or instance health before debugging a harness.
+Run both a broad semantic query and an exact-term hybrid query in Antfly before adding an agent. Confirm that each returns explanatory chunk text, not only source-document metadata. If either direct test fails, fix ingestion or instance health before debugging a harness.
 
 ## 2. Create a safe credential
 
@@ -41,7 +41,7 @@ Copy the harness's `.env.example`, set its secrets, and customize the product na
 
 ## 4. Preserve the retrieval contract
 
-Every implementation starts with one hybrid Antfly query containing BM25/full-text retrieval, semantic retrieval, Antfly RRF fusion, chunk hierarchy output, and at most six results. It may make one sequential focused fallback only if the first result is empty or insufficient. It must not run Antfly retrieval calls concurrently.
+Every implementation starts with one intent-selected Antfly query. Broad conceptual questions use expanded semantic-first retrieval; exact technical questions use BM25 plus semantic retrieval with Antfly RRF fusion. Both return chunk hierarchy output and at most six results. A broad semantic query may make one sequential focused hybrid fallback only if its evidence is empty or insufficient. It must not run Antfly retrieval calls concurrently.
 
 This is both an answer-quality and reliability boundary. Increasing the agent's search fan-out can keep MCP work active for more than a minute and produce connection closures or proxy timeouts.
 
@@ -65,6 +65,6 @@ Verify tool-call count, citations, latency, refusal behavior, and escalation—n
 
 ## 6. Operate the deployed agent
 
-Log request IDs, table name, retrieval mode, tool-call count, elapsed time, hit and source counts, retry count, failure class, and generation provider. Never log credentials or Authorization headers.
+Log request IDs, table name, retrieval strategy, tool-call count, fallback use, elapsed time, hit and source counts, retry count, failure class, and generation provider. Segment latency and quality by semantic-first versus hybrid retrieval. Never log credentials or Authorization headers.
 
 When multiple independent clients fail together, investigate the Antfly instance, proxy, and inference health. When only one harness fails, refresh that harness's connection or credential before changing the retrieval prompt.

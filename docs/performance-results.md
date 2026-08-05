@@ -50,9 +50,20 @@ Reducing the hybrid limit from six to three cuts the decoded agent payload by 49
 latency by only about 1 ms. It is primarily an agent-context optimization and requires answer-quality
 evaluation before becoming the default.
 
-BM25-only and semantic-only output is unexpectedly large. The support-agent contract should retain
-one hybrid RRF query; standalone modes need separate response-shape investigation before customer
-use.
+BM25-only and semantic-only output was unexpectedly large in this benchmark. That
+payload result remains a performance concern, but it is not sufficient to choose a
+retrieval strategy without measuring source relevance and answer quality.
+
+### Retrieval-quality follow-up
+
+On 2026-08-05, the exact broad question "What is Antfly?" was compared across
+strategies. Semantic-only ranked Introduction, Architecture, Quickstart, Document
+Engine, Operator, and ML/AI. BM25 ranked the Public API first, and hybrid RRF placed
+the Public API second while pushing Introduction to third. The support-agent contract
+therefore uses semantic-first retrieval for broad conceptual questions and retains
+hybrid RRF for exact technical terminology. Semantic-first was about 38 ms slower at
+p50 in the earlier latency run and returned a larger payload, so these paths must be
+tracked separately.
 
 ### Route variability
 
@@ -99,7 +110,7 @@ agent instructions.
    upstream pooling.
 3. Hide mutation/admin tools from `tools/list` for read-only keys and add MCP read-only/destructive
    annotations for all tools.
-4. Keep the direct single hybrid query path and cache stable discovery metadata in clients.
+4. Keep one direct intent-selected query: semantic-first for broad concepts and hybrid RRF for exact terms; cache stable discovery metadata in clients.
 5. Evaluate limit 3 against the shared answer-quality set. Adopt it for narrow fact lookup only if
    citation coverage and grounded-answer scores remain unchanged.
 6. Inspect standalone BM25/semantic result shaping; avoid returning document-level fields that are

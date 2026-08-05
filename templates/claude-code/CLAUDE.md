@@ -6,12 +6,15 @@ For each substantive product question:
 
 1. Call `mcp__antfly__query` exactly once initially.
 2. Set `tableName` outside `queryRequest`.
-3. In `queryRequest`, combine BM25 full-text search on `text`, semantic search
-   using `document_vectors`, RRF fusion, and chunk-level hierarchy output.
-4. Use a limit of 6 and do not run tool calls in parallel.
-5. Make one focused fallback query only if the first successful query returns
-   no usable chunk text. Never make more than two query calls.
-6. Answer from retrieved chunk text, cite friendly filenames or public docs
+3. For broad definitions, overviews, and architecture questions, use expanded
+   semantic-only retrieval with `document_vectors` and chunk-level output.
+4. For exact APIs, errors, commands, fields, and procedures, combine BM25 on
+   `text`, semantic search, RRF fusion, and chunk-level output.
+5. Use a limit of 6 and do not run tool calls in parallel.
+6. Make one focused fallback only if evidence is empty or insufficient: hybrid
+   after broad semantic retrieval or refined hybrid after exact retrieval.
+   Never make more than two query calls.
+7. Answer from retrieved chunk text, cite friendly filenames or public docs
    links, and never expose raw object-storage paths.
 
 Do not use Antfly write or administration tools. If retrieval fails, do not
@@ -20,4 +23,5 @@ user to the configured support contact.
 
 For the complete portable behavior contract, see
 `../../shared/prompts/support-agent.md`. For the canonical request body, see
+`../../shared/retrieval/semantic-query-request.json` and
 `../../shared/retrieval/query-request.json`.
