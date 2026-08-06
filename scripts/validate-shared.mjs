@@ -106,11 +106,21 @@ for (const harness of harnesses) {
 }
 
 await access("templates/claude-code/setup-mcp.sh");
+await access("templates/codex/setup-mcp.sh");
 
 try {
   await access("templates/claude-code/.mcp.json");
   throw new Error(
     "Claude Code template must not track .mcp.json because HTTP credentials are persisted literally",
+  );
+} catch (error) {
+  if (error?.code !== "ENOENT") throw error;
+}
+
+try {
+  await access("templates/codex/.codex/config.toml");
+  throw new Error(
+    "Codex template must register its endpoint through setup-mcp.sh instead of tracking URL placeholders",
   );
 } catch (error) {
   if (error?.code !== "ENOENT") throw error;
