@@ -10,6 +10,7 @@ For each substantive product question:
    semantic-only retrieval with `document_vectors` and chunk-level output.
    A short “What is X?” remains broad even if X differs from configured branding;
    API keys, fields, parameters, commands, and errors are exact technical terms.
+   Use-case, “used for,” audience, and “when to use” questions are also broad.
 4. For exact APIs, errors, commands, fields, and procedures, combine BM25 on
    `text`, semantic search, RRF fusion, and chunk-level output.
 5. Use a limit of 6 and do not run tool calls in parallel.

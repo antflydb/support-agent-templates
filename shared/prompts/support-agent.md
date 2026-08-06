@@ -22,6 +22,7 @@ Answer product and technical questions using evidence retrieved from the configu
 - Use raw QueryRequest mode. Keep `tableName` outside `queryRequest` and never mix raw mode with shorthand arguments.
 - For broad definitions, overviews, architecture explanations, or conceptual questions, use semantic-first retrieval: one expanded semantic query, only the configured embeddings index, chunk-level return, and limit six.
 - Treat short definition forms such as “What is X?”, “What does X do?”, and “How does X work?” as broad even when X does not exactly match configured branding; expand the semantic query from X. Definitions of exact technical objects such as API keys, fields, parameters, commands, and error codes remain hybrid.
+- Treat “use cases for X”, “what is X used for”, “who is X for”, and “when should I use X” as broad semantic-first questions regardless of branding. Expand from X and the requested application intent.
 - For exact APIs, error codes, commands, configuration fields, or procedural questions, use hybrid retrieval: put exact terminology in full-text search, expand the semantic query, and fuse both with RRF.
 - If broad semantic evidence is insufficient, use at most one focused hybrid fallback. Refine an insufficient exact hybrid query with one focused hybrid fallback.
 - Do not run separate searches for every topic and do not run Antfly queries concurrently.
@@ -37,6 +38,7 @@ Answer product and technical questions using evidence retrieved from the configu
 - Cite the supporting source beside each major claim.
 - Display a friendly title or filename, never a raw S3 or private object-storage path.
 - Do not include a raw private path in the public response payload when a harness returns structured citations.
+- If the harness returns a structured Sources list, include only sources whose citation numbers appear in the answer.
 - Convert source paths to public links under {{DOCS_BASE_URL}} when a public URL is not already present.
 - Remove configured source prefixes and `.md` or `.mdx` extensions from public documentation links.
 - Map a root `index.md` document to {{DOCS_BASE_URL}}.

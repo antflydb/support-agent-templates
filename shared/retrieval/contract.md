@@ -27,6 +27,10 @@ work?" as broad even when `X` differs from configured branding. Build the semant
 query from `X`, not from the branding variable. Keep definitions of exact technical
 objects such as API keys, parameters, commands, error codes, and configuration
 fields on the hybrid path.
+Treat “use cases for X,” “what is X used for,” “who is X for,” and “when should I
+use X” as broad conceptual questions regardless of configured branding. Expand
+their semantic query with supported application patterns such as retrieval,
+workloads, and integrations, using only terms appropriate to the indexed product.
 In the 2026-08-05 development baseline, semantic-only responses were larger and
 slightly slower than hybrid responses, so measure the two paths separately. A limit
 of three can reduce agent context substantially, but limit six remains the default
@@ -81,6 +85,9 @@ citation independently so citation deduplication never discards evidence.
 Never expose private object-storage paths in the answer or public response model.
 Normalize citations with the configured public documentation base URL and source
 prefix before returning them to a browser or calling application.
+When an answer uses numbered citations, return only the sources whose numbers
+actually appear in the answer; retrieved-but-unused documents must not appear in
+the public Sources list.
 
 ## Failure classification
 

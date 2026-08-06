@@ -8,6 +8,7 @@ Use `antfly_search` for every substantive product or technical question.
   configuration fields, and procedures.
 - Treat short “What is X?” definitions as semantic even when X differs from
   configured branding, except for exact technical objects such as API keys.
+- Treat use-case, “used for,” audience, and “when to use” questions as semantic.
 - Require chunk-level evidence with explanatory text for either strategy.
 - Make one focused fallback only if evidence is empty or insufficient: hybrid
   after broad semantic retrieval or refined hybrid after exact retrieval. Never

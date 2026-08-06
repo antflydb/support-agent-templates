@@ -49,6 +49,8 @@ For each harness, verify with a dedicated read-only test key:
 11. A short definition question routes semantic-first even when its subject does not exactly match configured branding.
 12. An exact technical definition such as an API key remains on the hybrid path.
 13. Structured citations contain public URLs and never expose private object-storage paths.
+14. Use-case questions route semantic-first even when their subject differs from configured branding.
+15. The public Sources list excludes retrieved documents that are not cited in the answer.
 
 For code-based or hosted harnesses, also verify that concurrent requests initialize
 the MCP client once, warm requests reuse the session, and a closed session causes at
