@@ -1,8 +1,9 @@
 # Claude Code support agent
 
-This project-scoped recipe connects Claude Code directly to a hosted Antfly
-Cloud MCP endpoint. It uses Bearer authentication from the environment and
-auto-approves only the `query` and `get_document` read tools.
+This recipe connects Claude Code directly to a hosted Antfly Cloud MCP
+endpoint. It registers a checkout-local server named `antfly`, uses Bearer
+authentication, and auto-approves only the `query` and `get_document` read
+tools.
 
 ## Set up
 
@@ -14,8 +15,13 @@ auto-approves only the `query` and `get_document` read tools.
    export ANTFLY_API_KEY="YOUR_TOKEN"
    ```
 
-3. Start Claude Code and approve the project-scoped MCP server when prompted.
-4. Run `/mcp` and confirm `antfly` is connected.
+3. Register the connection from the directory containing this template:
+
+   ```bash
+   ./setup-mcp.sh
+   ```
+
+4. Start Claude Code, run `/mcp`, and confirm `antfly` is connected.
 5. Ask: `What is Antfly and how does its hybrid retrieval work?`
 
 To test the endpoint before opening an interactive session, run Claude Code's
@@ -30,22 +36,34 @@ The server must show as connected. A direct initialize request returning HTTP
 different environment; create a fresh instance-scoped read-only key and keep
 the URL and key from the same Antfly Cloud environment.
 
-The same connection can be added without files:
+The setup script is equivalent to:
 
 ```bash
-claude mcp add --transport http --scope project \
-  --header "Authorization: Bearer ${ANTFLY_API_KEY}" \
-  antfly "${ANTFLY_MCP_URL}"
+claude mcp add --transport http --scope local \
+  antfly "${ANTFLY_MCP_URL}" \
+  --header "Authorization: Bearer ${ANTFLY_API_KEY}"
 ```
 
-Do not put a token literal in `.mcp.json`. Claude Code expands environment
-variables in HTTP URLs and headers. The project permission file denies known
-write and administration tools; the Antfly key remains the primary enforcement
-boundary and must also be read-only.
+Keep the arguments in this order: current Claude Code versions treat
+`--header` as variadic, so putting it before `antfly` can consume the server
+name and URL.
 
-Claude's workspace approval file (`.claude/settings.local.json`) is local
-machine state and is intentionally ignored by Git. Each customer approves the
-project-scoped MCP server once on their own machine.
+Do not commit a token literal in `.mcp.json`. Claude Code does not expand
+`${...}` shell placeholders in a checked-in `.mcp.json`; it sends them as
+literal values. Project scope also persists the expanded Bearer token in that
+file. Local scope keeps the connection associated with this checkout without
+writing credentials to the repository. The project permission file denies
+known write and administration tools; the Antfly key remains the primary
+enforcement boundary and must also be read-only.
+
+If this project previously used the placeholder-based `.mcp.json`, delete its
+`antfly` entry before setup. `setup-mcp.sh` performs that migration
+automatically while preserving unrelated MCP servers.
+
+Claude's local MCP registration and workspace approval file
+(`.claude/settings.local.json`) are machine-local state and are intentionally
+ignored by Git. Each customer configures and approves the server on their own
+machine.
 
 Official Claude Code references:
 

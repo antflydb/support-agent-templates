@@ -8,7 +8,6 @@ const jsonFiles = [
   "shared/security/read-only-tools.json",
   "shared/evals/support-agent.json",
   "shared/evals/antfly-docs.json",
-  "templates/claude-code/.mcp.json",
   "templates/claude-code/.claude/settings.json",
   "templates/claude-agent/package.json",
   "templates/pi/package.json",
@@ -98,6 +97,17 @@ const harnesses = [
 
 for (const harness of harnesses) {
   await access(`templates/${harness}/README.md`);
+}
+
+await access("templates/claude-code/setup-mcp.sh");
+
+try {
+  await access("templates/claude-code/.mcp.json");
+  throw new Error(
+    "Claude Code template must not track .mcp.json because HTTP credentials are persisted literally",
+  );
+} catch (error) {
+  if (error?.code !== "ENOENT") throw error;
 }
 
 for (const file of [
