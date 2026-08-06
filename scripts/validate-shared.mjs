@@ -242,4 +242,22 @@ for (const file of markdownFiles) {
   }
 }
 
+const harnessComparison = await readFile("docs/harness-comparison.md", "utf8");
+for (const harness of [
+  "Next.js / Vercel",
+  "Claude Code",
+  "Codex",
+  "Claude Agent SDK",
+  "OpenAI Agents SDK",
+  "Google ADK",
+  "Hermes",
+  "Pi",
+  "n8n",
+  "Microsoft Copilot Studio",
+]) {
+  if (!harnessComparison.includes(harness)) {
+    throw new Error(`Harness comparison is missing ${harness}`);
+  }
+}
+
 console.log("Shared contract and all Antfly harness adapters are valid.");

@@ -49,7 +49,7 @@ The [`shared`](shared) directory defines behavior that every integration must pr
 - deterministic escalation when evidence is insufficient
 - common environment variables, evaluations, and failure handling
 
-See the [customer quickstart](docs/quickstart.md), [template architecture](docs/architecture.md), and [validation gates](docs/validation.md).
+See the [customer quickstart](docs/quickstart.md), [template architecture](docs/architecture.md), [internal harness comparison](docs/harness-comparison.md), and [validation gates](docs/validation.md).
 
 ## Customer path
 
