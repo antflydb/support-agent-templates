@@ -9,6 +9,8 @@ const jsonFiles = [
   "shared/evals/support-agent.json",
   "shared/evals/antfly-docs.json",
   "templates/claude-code/.claude/settings.json",
+  "templates/claude-code/retrieval/query-request.json",
+  "templates/claude-code/retrieval/semantic-query-request.json",
   "templates/claude-agent/package.json",
   "templates/pi/package.json",
   "templates/pi/tsconfig.json",
@@ -125,6 +127,35 @@ for (const file of [
   }
   if (!/(write|never create|no Antfly write)/i.test(instructions)) {
     throw new Error(`${file} is missing a read-only safety rule`);
+  }
+}
+
+const claudeCodeInstructions = await readFile(
+  "templates/claude-code/CLAUDE.md",
+  "utf8",
+);
+for (const [name, rule] of [
+  ["source rollup", /rollup` to `source/],
+  ["child cap", /max_children_per_parent` to `3/],
+  ["shell fallback ban", /Do not\s+run shell commands/],
+  ["diagnostic suppression", /Do not\s+report tool\s+calls/],
+]) {
+  if (!rule.test(claudeCodeInstructions)) {
+    throw new Error(`Claude Code adapter is missing compact retrieval rule: ${name}`);
+  }
+}
+
+for (const file of [
+  "templates/claude-code/retrieval/query-request.json",
+  "templates/claude-code/retrieval/semantic-query-request.json",
+]) {
+  const request = JSON.parse(await readFile(file, "utf8"));
+  const hierarchy = request.queryRequest?.hierarchy;
+  if (hierarchy?.return_level !== "chunk" ||
+      hierarchy?.rollup !== "source" ||
+      hierarchy?.max_children_per_parent !== 3 ||
+      JSON.stringify(hierarchy?.include) !== JSON.stringify(["source"])) {
+    throw new Error(`${file} must use compact source-rolled chunk retrieval`);
   }
 }
 

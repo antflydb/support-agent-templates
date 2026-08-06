@@ -1,0 +1,21 @@
+{
+  "tableName": "{{TABLE_NAME}}",
+  "queryRequest": {
+    "full_text_search": {
+      "match": "{{RELEVANT_KEYWORDS}}",
+      "field": "{{FULL_TEXT_FIELD}}"
+    },
+    "semantic_search": "{{EXPANDED_QUESTION}}",
+    "indexes": ["{{VECTOR_INDEX}}"],
+    "merge_config": {
+      "strategy": "rrf"
+    },
+    "hierarchy": {
+      "return_level": "chunk",
+      "rollup": "source",
+      "include": ["source"],
+      "max_children_per_parent": 3
+    },
+    "limit": 6
+  }
+}

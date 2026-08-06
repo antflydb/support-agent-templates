@@ -1,0 +1,14 @@
+{
+  "tableName": "{{TABLE_NAME}}",
+  "queryRequest": {
+    "semantic_search": "{{EXPANDED_CONCEPTUAL_QUESTION}}",
+    "indexes": ["{{VECTOR_INDEX}}"],
+    "hierarchy": {
+      "return_level": "chunk",
+      "rollup": "source",
+      "include": ["source"],
+      "max_children_per_parent": 3
+    },
+    "limit": 6
+  }
+}
