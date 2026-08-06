@@ -9,6 +9,11 @@
       "expect": ["AntflyDB", "distributed document database", "hybrid retrieval", "Antfly Cloud", "citations"]
     },
     {
+      "id": "antfly-overview-and-use-cases",
+      "question": "What is Antfly and what are the best use cases?",
+      "expect": ["distributed document database", "hybrid search", "RAG", "application search", "Antfly Lite", "citations", "no_internal_retrieval_diagnostics"]
+    },
+    {
       "id": "cloud-features",
       "question": "What does Antfly Cloud add to AntflyDB?",
       "expect": ["managed instances", "access control", "backups", "citations"]

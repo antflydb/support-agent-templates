@@ -30,6 +30,11 @@ documents. This preserves explanatory evidence and provenance while avoiding
 oversized raw MCP tool results. It also prohibits filesystem and shell-command
 fallback for documentation answers.
 
+Before changing retrieval behavior, run the golden scenario in `evals.json`.
+It captures the validated “What is Antfly and what are the best use cases?”
+answer contract, including evidence-bearing compact retrieval, useful product
+comparisons, and clean public citations.
+
 To test the endpoint before opening an interactive session, run Claude Code's
 MCP health check after exporting the variables:
 

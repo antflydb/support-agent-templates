@@ -9,6 +9,7 @@ const jsonFiles = [
   "shared/evals/support-agent.json",
   "shared/evals/antfly-docs.json",
   "templates/claude-code/.claude/settings.json",
+  "templates/claude-code/evals.json",
   "templates/claude-code/retrieval/query-request.json",
   "templates/claude-code/retrieval/semantic-query-request.json",
   "templates/claude-agent/package.json",
@@ -127,6 +128,29 @@ for (const file of [
   }
   if (!/(write|never create|no Antfly write)/i.test(instructions)) {
     throw new Error(`${file} is missing a read-only safety rule`);
+  }
+}
+
+const claudeCodeEvals = JSON.parse(
+  await readFile("templates/claude-code/evals.json", "utf8"),
+);
+const claudeUseCaseEval = claudeCodeEvals.cases?.find(
+  (testCase) => testCase.id === "antfly-overview-and-use-cases",
+);
+if (!claudeUseCaseEval) {
+  throw new Error("Claude Code adapter must retain the Antfly overview/use-case regression eval");
+}
+for (const expectation of [
+  "semantic_first",
+  "direct_stored_chunk_evidence",
+  "no_source_rollup",
+  "no_field_projection",
+  "no_shell_or_filesystem_fallback",
+  "no_internal_retrieval_diagnostics",
+  "friendly_public_citations",
+]) {
+  if (!claudeUseCaseEval.expect?.includes(expectation)) {
+    throw new Error(`Claude Code overview eval is missing expectation: ${expectation}`);
   }
 }
 
