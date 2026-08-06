@@ -20,7 +20,16 @@ codex mcp add antfly \
 
 Verify the connection with:
 
-> What is Antfly and how does hybrid search combine BM25 and vectors?
+> What is Antfly?
+
+That broad definition must make one semantic-only query using the canonical
+body in `retrieval/semantic-query-request.json`. It must not add BM25, field
+projection, `document_renderer`, or a schema-discovery call. Exact technical
+questions use the hybrid body in `retrieval/query-request.json`.
+
+Run the cases in `evals.json` before changing retrieval instructions. They
+protect the live QueryRequest syntax, broad-question routing, direct chunk
+evidence, and clean customer-facing response.
 
 Use a dedicated read-only key per colleague or environment. Do not put the key
 in `config.toml`, commit `.env`, or enable Antfly write tools for this support

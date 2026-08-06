@@ -1,0 +1,18 @@
+{
+  "tableName": "antfly_docs",
+  "queryRequest": {
+    "full_text_search": {
+      "match": "{{RELEVANT_KEYWORDS}}",
+      "field": "text"
+    },
+    "semantic_search": "{{EXPANDED_QUESTION}}",
+    "indexes": ["document_vectors"],
+    "merge_config": {
+      "strategy": "rrf"
+    },
+    "hierarchy": {
+      "return_level": "chunk"
+    },
+    "limit": 6
+  }
+}

@@ -12,6 +12,9 @@ const jsonFiles = [
   "templates/claude-code/evals.json",
   "templates/claude-code/retrieval/query-request.json",
   "templates/claude-code/retrieval/semantic-query-request.json",
+  "templates/codex/evals.json",
+  "templates/codex/retrieval/query-request.json",
+  "templates/codex/retrieval/semantic-query-request.json",
   "templates/claude-agent/package.json",
   "templates/pi/package.json",
   "templates/pi/tsconfig.json",
@@ -258,6 +261,49 @@ for (const harness of [
   if (!harnessComparison.includes(harness)) {
     throw new Error(`Harness comparison is missing ${harness}`);
   }
+}
+
+const codexInstructions = await readFile("templates/codex/AGENTS.md", "utf8");
+for (const forbiddenSyntax of [
+  "full_text_search.query",
+  "merge_config.type",
+  "document_renderer",
+  "fields` projection",
+]) {
+  if (!codexInstructions.includes(forbiddenSyntax)) {
+    throw new Error(`Codex adapter must explicitly reject stale syntax: ${forbiddenSyntax}`);
+  }
+}
+
+for (const file of [
+  "templates/codex/retrieval/query-request.json",
+  "templates/codex/retrieval/semantic-query-request.json",
+]) {
+  const request = JSON.parse(await readFile(file, "utf8"));
+  if (JSON.stringify(request.queryRequest?.hierarchy) !==
+      JSON.stringify({ return_level: "chunk" })) {
+    throw new Error(`${file} must request direct stored chunk evidence`);
+  }
+  for (const staleField of ["fields", "document_renderer"]) {
+    if (Object.hasOwn(request.queryRequest, staleField)) {
+      throw new Error(`${file} contains stale field: ${staleField}`);
+    }
+  }
+}
+
+const codexSemantic = JSON.parse(
+  await readFile("templates/codex/retrieval/semantic-query-request.json", "utf8"),
+);
+if (codexSemantic.queryRequest.full_text_search || codexSemantic.queryRequest.merge_config) {
+  throw new Error("Codex broad definition query must remain semantic-only");
+}
+
+const codexHybrid = JSON.parse(
+  await readFile("templates/codex/retrieval/query-request.json", "utf8"),
+);
+if (codexHybrid.queryRequest.full_text_search?.match === undefined ||
+    codexHybrid.queryRequest.merge_config?.strategy !== "rrf") {
+  throw new Error("Codex hybrid query must use live match/strategy syntax");
 }
 
 console.log("Shared contract and all Antfly harness adapters are valid.");

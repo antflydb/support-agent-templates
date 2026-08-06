@@ -1,0 +1,11 @@
+{
+  "tableName": "antfly_docs",
+  "queryRequest": {
+    "semantic_search": "{{EXPANDED_CONCEPTUAL_QUESTION}}",
+    "indexes": ["document_vectors"],
+    "hierarchy": {
+      "return_level": "chunk"
+    },
+    "limit": 6
+  }
+}

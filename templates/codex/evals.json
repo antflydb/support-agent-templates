@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "adapter": "codex",
+  "cases": [
+    {
+      "id": "antfly-definition",
+      "question": "What is Antfly?",
+      "category": "broad_product",
+      "expect": [
+        "semantic_first",
+        "one_query",
+        "canonical_query_request",
+        "direct_stored_chunk_evidence",
+        "no_hybrid_for_broad_definition",
+        "no_field_projection",
+        "no_document_renderer",
+        "no_schema_discovery",
+        "grounded_answer",
+        "friendly_public_citations",
+        "no_internal_retrieval_diagnostics"
+      ]
+    }
+  ]
+}
