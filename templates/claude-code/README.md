@@ -24,11 +24,11 @@ tools.
 4. Start Claude Code, run `/mcp`, and confirm `antfly` is connected.
 5. Ask: `What is Antfly and how does its hybrid retrieval work?`
 
-The Claude adapter uses semantic-first retrieval for broad questions and a
-compact hierarchy response: results are rolled up by source with no more than
-three chunk children per source. This preserves explanatory evidence and
-citations while avoiding oversized raw MCP tool results. It also prohibits
-filesystem and shell-command fallback for documentation answers.
+The Claude adapter uses semantic-first retrieval for broad questions and
+returns direct stored chunk hits without hydrating full source or unit ancestor
+documents. This preserves explanatory evidence and provenance while avoiding
+oversized raw MCP tool results. It also prohibits filesystem and shell-command
+fallback for documentation answers.
 
 To test the endpoint before opening an interactive session, run Claude Code's
 MCP health check after exporting the variables:

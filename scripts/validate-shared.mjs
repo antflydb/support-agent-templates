@@ -135,8 +135,8 @@ const claudeCodeInstructions = await readFile(
   "utf8",
 );
 for (const [name, rule] of [
-  ["source rollup", /rollup` to `source/],
-  ["child cap", /max_children_per_parent` to `3/],
+  ["direct chunk return", /return_level[^\n]+chunk/],
+  ["field projection ban", /Omit `fields`/],
   ["shell fallback ban", /Do not\s+run shell commands/],
   ["diagnostic suppression", /Do not\s+report tool\s+calls/],
 ]) {
@@ -151,11 +151,11 @@ for (const file of [
 ]) {
   const request = JSON.parse(await readFile(file, "utf8"));
   const hierarchy = request.queryRequest?.hierarchy;
-  if (hierarchy?.return_level !== "chunk" ||
-      hierarchy?.rollup !== "source" ||
-      hierarchy?.max_children_per_parent !== 3 ||
-      JSON.stringify(hierarchy?.include) !== JSON.stringify(["source"])) {
-    throw new Error(`${file} must use compact source-rolled chunk retrieval`);
+  if (JSON.stringify(hierarchy) !== JSON.stringify({ return_level: "chunk" })) {
+    throw new Error(`${file} must use direct stored chunk retrieval without ancestor hydration`);
+  }
+  if (Object.hasOwn(request.queryRequest, "fields")) {
+    throw new Error(`${file} must omit fields so stored chunk text is returned`);
   }
 }
 

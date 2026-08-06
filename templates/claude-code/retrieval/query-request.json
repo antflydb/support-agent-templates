@@ -11,10 +11,7 @@
       "strategy": "rrf"
     },
     "hierarchy": {
-      "return_level": "chunk",
-      "rollup": "source",
-      "include": ["source"],
-      "max_children_per_parent": 3
+      "return_level": "chunk"
     },
     "limit": 6
   }

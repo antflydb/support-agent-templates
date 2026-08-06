@@ -8,8 +8,9 @@ For each substantive product question:
 2. Set `tableName` outside `queryRequest`.
 3. For broad definitions, overviews, and architecture questions, use expanded
    semantic-only retrieval with `document_vectors` and compact chunk-level
-   output. Set hierarchy `return_level` to `chunk`, `rollup` to `source`,
-   `include` to `["source"]`, and `max_children_per_parent` to `3`.
+   output. Set hierarchy only to `{ "return_level": "chunk" }`. Omit `fields`,
+   `include`, `rollup`, and `max_children_per_parent`: direct chunk hits return
+   their stored chunk text, while source rollup returns metadata-only children.
    A short “What is X?” remains broad even if X differs from configured branding;
    API keys, fields, parameters, commands, and errors are exact technical terms.
    Use-case, “used for,” audience, and “when to use” questions are also broad.
