@@ -26,6 +26,7 @@ The support agent should see only `query` and `get_document`. Introspection tool
 
 | Need | Start with |
 | --- | --- |
+| Complete knowledge base, search, and embedded support product | [Knowledge Support](../templates/knowledge-support/README.md) |
 | Public, branded website | [Next.js/Vercel](../templates/nextjs/README.md) |
 | Developer assistance in a repository | [Claude Code](../templates/claude-code/README.md) |
 | Custom Claude service | [Claude Agent SDK](../templates/claude-agent/README.md) |

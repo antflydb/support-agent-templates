@@ -46,6 +46,9 @@ Antfly remains the evidence and retrieval engine even when a harness uses Claude
 
 ## Harness families
 
+- **Knowledge-support product:** the Knowledge Support Next.js/Vercel template
+  combines ingestion, administration, search, hosted support, analytics, and
+  the support-agent layer in `@antfly/components`.
 - **Web applications:** Next.js/Vercel provides the branded public experience.
 - **Workflow and enterprise assistants:** n8n and Microsoft Copilot provide visual orchestration and publication workflows.
 - **Programmable agent runtimes:** Claude Agent SDK, OpenAI Agents SDK, Google ADK, Hermes, and Pi embed the same contract in code or runtime configuration.

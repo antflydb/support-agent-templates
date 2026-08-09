@@ -99,6 +99,7 @@ const harnesses = [
   "n8n",
   "copilot",
   "nextjs",
+  "knowledge-support",
 ];
 
 for (const harness of harnesses) {
@@ -257,6 +258,7 @@ for (const file of markdownFiles) {
 
 const harnessComparison = await readFile("docs/harness-comparison.md", "utf8");
 for (const harness of [
+  "Knowledge Support — Next.js/Vercel",
   "Next.js / Vercel",
   "Claude Code",
   "Codex",

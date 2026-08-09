@@ -24,6 +24,7 @@ to connect an MCP server to an agent:
 
 ## Available harnesses
 
+- Knowledge Support — Next.js/Vercel product template
 - Next.js and Vercel
 - Claude Code
 - Claude Agent SDK
@@ -63,6 +64,7 @@ See the [customer quickstart](docs/quickstart.md), [template architecture](docs/
 
 ## Working Antfly Docs examples
 
+- The [Knowledge Support template](templates/knowledge-support/README.md) links the deployable [`antflydb/knowledge-support`](https://github.com/antflydb/knowledge-support) application with `@antfly/components` to provide the path from connected knowledge to hosted and embedded support.
 - The [Next.js/Vercel reference](templates/nextjs/README.md) is a deployable application.
 - The [n8n recipe](templates/n8n/README.md) captures the working visual workflow and its bounded system message.
 - The [Copilot Studio recipe](templates/copilot/README.md) includes MCP setup, its 10/10 evaluation refinement, and Microsoft 365 publication.
