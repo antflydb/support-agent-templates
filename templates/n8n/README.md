@@ -17,8 +17,9 @@ When chat message received -> AI Agent
 3. Attach an **MCP Client Tool** to the agent's Tool input.
 4. Set the MCP URL to the hosted Antfly instance endpoint ending in `/mcp/v1`.
 5. Select **Bearer Auth** and create a credential containing the token only. n8n supplies the `Authorization: Bearer` header. Use an instance-scoped read-only key that belongs to the same environment as the URL.
-6. Expose only `query` and `get_document` to the agent. Enable introspection tools temporarily only while diagnosing a schema problem. Do not expose write or administration tools.
+6. Set **Tools to Include** to **Selected** and expose only `query` to the agent. Enable `get_document` or read-only introspection tools temporarily only when a workflow explicitly needs them. Do not expose write or administration tools.
 7. Paste [`system-message.md`](system-message.md) into the AI Agent's **System Message** field.
+8. Set the chat model temperature to `0` or `0.1` and keep the agent's maximum iterations between 4 and 6. This reduces speculative or malformed tool calls while still permitting one focused retrieval fallback.
 
 Replace the example table, index, field, product name, public documentation URL, and escalation address for a customer deployment.
 
@@ -28,7 +29,7 @@ Start with:
 
 > What is Antfly, how does its hybrid retrieval work, and what does Antfly Cloud add?
 
-A healthy execution uses one `query` call, returns explanatory chunks rather than only source metadata, cites overview or guide pages, and normally completes without a fallback query.
+A healthy execution uses one `query` call against `document_search_import`, returns explanatory chunks rather than only source metadata, cites overview or guide pages, and normally completes without a fallback query.
 
 Then test:
 
@@ -41,12 +42,13 @@ Then test:
 
 | Symptom | Check |
 | --- | --- |
-| `invalid query request` | Use raw mode exactly as shown; `tableName` stays outside `queryRequest`, and no shorthand argument may accompany it. |
-| Query returns paths but no text | Request chunk hierarchy with source and unit; metadata alone is not evidence. |
+| `invalid query request` | Open the AI Agent execution and inspect the failed tool call's actual input. It must have exactly two outer properties, `tableName` and an object-valued `queryRequest`; do not mix in shorthand arguments. The stack trace alone does not identify the invalid property. |
+| Query returns paths but no text | Request direct chunk hierarchy with `{ "return_level": "chunk" }`; metadata alone is not evidence. Never request `_chunks.*`, which can create an oversized response. |
 | `query failed` | Test the same query in Antfly, verify table/index readiness, and inspect instance/inference health. |
 | MCP `-32000: Connection closed` | Stop the run. Confirm the instance is healthy and URL/key environments match; reconnect once instead of allowing the agent to fan out calls. |
-| Cloudflare 524 or response over one minute | Keep one intent-selected query with limit 6 and one optional sequential fallback. Check instance load before increasing timeouts. |
+| Cloudflare 524 or response over one minute | Keep one intent-selected query with limit 5 and one optional sequential fallback. Check instance load before increasing timeouts. |
 | Every external client fails | Treat it as an Antfly instance or proxy incident, not a prompt issue. Check health and restart the instance only through the normal operator workflow if appropriate. |
 | Only n8n fails | Recreate or reselect the Bearer credential, refresh the MCP node connection, and run the MCP node alone before testing the agent. |
+| Answer contains `\ ` before spaces or punctuation | Require normal Markdown in the system message. If a downstream node still shell-escapes text, remove that formatter or normalize the final output before sending it to the channel. |
 
 Do not log the credential or paste it into the system message. Rotate a key immediately if it is exposed in an execution export or screenshot.

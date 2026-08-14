@@ -230,16 +230,39 @@ for (const file of [
 
 const n8nInstructions = await readFile("templates/n8n/system-message.md", "utf8");
 const copilotInstructions = await readFile("templates/copilot/instructions.md", "utf8");
-for (const [name, instructions] of [
-  ["n8n", n8nInstructions],
-  ["Copilot", copilotInstructions],
+for (const [name, instructions, limit] of [
+  ["n8n", n8nInstructions, 5],
+  ["Copilot", copilotInstructions, 6],
 ]) {
   if (!instructions.includes("tableName") || !instructions.includes("queryRequest")) {
     throw new Error(`${name} instructions must preserve raw QueryRequest argument placement`);
   }
-  if (!instructions.includes("limit 6") && !instructions.includes('"limit": 6')) {
-    throw new Error(`${name} instructions must enforce the six-hit limit`);
+  if (!instructions.includes(`limit ${limit}`) && !instructions.includes(`"limit": ${limit}`)) {
+    throw new Error(`${name} instructions must enforce the ${limit}-hit limit`);
   }
+}
+
+for (const rule of [
+  /exactly two outer properties/i,
+  /document_search_import/,
+  /normal Markdown/i,
+  /Do not infer a capability/i,
+  /Match the structure to the question/i,
+  /"limit": 5/,
+]) {
+  if (!rule.test(n8nInstructions)) {
+    throw new Error(`n8n instructions are missing production rule: ${rule}`);
+  }
+}
+
+const n8nEnvironment = await readFile("templates/n8n/.env.example", "utf8");
+if (!n8nEnvironment.includes("ANTFLY_TABLE=document_search_import")) {
+  throw new Error("n8n Antfly Docs example must target document_search_import");
+}
+
+const n8nReadme = await readFile("templates/n8n/README.md", "utf8");
+if (!/Tools to Include[\s\S]*Selected[\s\S]*only `query`/i.test(n8nReadme)) {
+  throw new Error("n8n recipe must constrain the MCP Client Tool to query only");
 }
 
 const markdownFiles = (await readdir(".", { recursive: true }))
